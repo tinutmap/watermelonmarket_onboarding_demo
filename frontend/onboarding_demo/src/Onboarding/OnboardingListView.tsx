@@ -20,8 +20,8 @@ export const OnboardingListView = (): JSX.Element => {
     case ResponseStatus.Resolved: {
       return (
         <>
-          <h1>Hello</h1>
-          <table>
+          <h1>Survey Report</h1>
+          <table className="table table-hover">
             <thead>
               <tr>
                 {Object.keys(data[0]).map((key) => (

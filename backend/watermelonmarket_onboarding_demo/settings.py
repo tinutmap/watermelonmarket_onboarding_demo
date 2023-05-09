@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-7-#6q41+))2&2+svc&d=^5pe9ql7#_i!g&e#h(9h24cx8uop19
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '[::1]',
+    'aesthentic.com',
+    'www.aesthentic.com',
+    '198.71.63.24',
+]
 
 
 # Application definition
@@ -128,6 +135,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
+    'http://www.aesthentic.com'
+    'http://198.71.63.24', # VPS Public IP
 ]
 
 CORS_ALLOW_CREDENTIALS = True

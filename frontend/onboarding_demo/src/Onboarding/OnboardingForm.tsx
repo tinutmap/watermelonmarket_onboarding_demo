@@ -1,4 +1,5 @@
 import React, { JSX, useState } from "react";
+import validator from "validator";
 import {
   createOnboardingData,
   OnboardingDataEntryPostType,
@@ -817,43 +818,74 @@ export const OnboardingQuestionWrapper = (): JSX.Element => {
       //   email,
     });
   const questions = [
-    <OnboardingQuestion1
-      dataFields={["store_name"]}
-      data={onboardingData}
-      setter={setOnboardingData}
-    />,
-    <OnboardingQuestion2
-      dataFields={["gift_card_amount", "gift_card_amount_currency"]}
-      data={onboardingData}
-      setter={setOnboardingData}
-    />,
-    <OnboardingQuestion3
-      dataFields={["gift_card_price", "gift_card_price_currency"]}
-      data={onboardingData}
-      setter={setOnboardingData}
-    />,
-    <OnboardingQuestion4
-      dataFields={["crypto_network"]}
-      data={onboardingData}
-      setter={setOnboardingData}
-    />,
-    <OnboardingQuestion5
-      dataFields={["crypto_address"]}
-      data={onboardingData}
-      setter={setOnboardingData}
-    />,
-    <OnboardingQuestion6
-      dataFields={["email"]}
-      data={onboardingData}
-      setter={setOnboardingData}
-    />,
-    <OnboardingQuestion7 />,
+    {
+      component: (
+        <OnboardingQuestion1
+          dataFields={["store_name"]}
+          data={onboardingData}
+          setter={setOnboardingData}
+        />
+      ),
+    },
+    {
+      component: (
+        <OnboardingQuestion2
+          dataFields={["gift_card_amount", "gift_card_amount_currency"]}
+          data={onboardingData}
+          setter={setOnboardingData}
+        />
+      ),
+    },
+    {
+      component: (
+        <OnboardingQuestion3
+          dataFields={["gift_card_price", "gift_card_price_currency"]}
+          data={onboardingData}
+          setter={setOnboardingData}
+        />
+      ),
+    },
+    {
+      component: (
+        <OnboardingQuestion4
+          dataFields={["crypto_network"]}
+          data={onboardingData}
+          setter={setOnboardingData}
+        />
+      ),
+    },
+    {
+      component: (
+        <OnboardingQuestion5
+          dataFields={["crypto_address"]}
+          data={onboardingData}
+          setter={setOnboardingData}
+        />
+      ),
+    },
+    {
+      component: (
+        <OnboardingQuestion6
+          dataFields={["email"]}
+          data={onboardingData}
+          setter={setOnboardingData}
+        />
+      ),
+      isInvalid:
+        !onboardingData.email || !validator.isEmail(onboardingData.email),
+      invalidMessage: "invalid email",
+    },
+    {
+      component: <OnboardingQuestion7 />,
+    },
   ];
+  const [error, setError] = useState("");
 
   return (
     <>
       <h1>Watermelon Markets - Seller Survey</h1>
-      <div>{questions[questionNumber]}</div>
+      <div>{questions[questionNumber].component}</div>
+      {error && <div>{error}</div>}
       {questionNumber > 0 && questionNumber < questions.length - 1 && (
         <button
           onClick={() => setQuestionNumber((val) => Math.max(val - 1, 0))}
@@ -864,6 +896,9 @@ export const OnboardingQuestionWrapper = (): JSX.Element => {
       {questionNumber < questions.length - 1 && (
         <button
           onClick={async () => {
+            if (questions[questionNumber].isInvalid) {
+              return setError(questions[questionNumber].invalidMessage ?? "");
+            }
             if (questionNumber === questions.length - 2) {
               try {
                 if (await createOnboardingData(onboardingData)) {

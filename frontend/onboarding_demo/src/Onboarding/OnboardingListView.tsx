@@ -22,20 +22,24 @@ export const OnboardingListView = (): JSX.Element => {
         <>
           <h1>Hello</h1>
           <table>
-            <tr>
-              {Object.keys(data[0]).map((key) => (
-                <th>{key}</th>
-              ))}
-            </tr>
-            {data.map((datum) => {
-              return (
-                <tr>
-                  {Object.values(datum).map((value) => (
-                    <td>{value}</td>
-                  ))}
-                </tr>
-              );
-            })}
+            <thead>
+              <tr>
+                {Object.keys(data[0]).map((key) => (
+                  <th key={key}>{key}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((datum) => {
+                return (
+                  <tr key={datum.id}>
+                    {Object.values(datum).map((value, key) => (
+                      <td key={datum.id + key}>{value}</td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </>
       );

@@ -135,7 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'http://www.aesthentic.com'
+    'http://www.aesthentic.com',
     'http://198.71.63.24', # VPS Public IP
 ]
 

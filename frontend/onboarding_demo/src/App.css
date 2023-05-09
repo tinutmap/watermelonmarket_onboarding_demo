@@ -19,10 +19,14 @@
   flex-direction: row;
   align-items: start;
   justify-content: center;
-  padding: 10px 0;
+  padding: 5px 0;
   width: max-content;
 }
 
 .App-body .nav-buttons button {
   margin: 0 5px 0 0;
+}
+
+.App-body .alert {
+  margin: 10px 0;
 }

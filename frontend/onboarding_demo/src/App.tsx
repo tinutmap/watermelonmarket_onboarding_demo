@@ -1,5 +1,4 @@
 import React from "react";
-// import logo from "./logo.svg";
 import "./App.css";
 import { OnboardingListView } from "./Onboarding/OnboardingListView";
 import { OnboardingQuestionWrapper } from "./Onboarding/OnboardingForm";
@@ -21,27 +20,11 @@ let router = createBrowserRouter([
 ]);
 
 function App() {
-  // return (
-  //   <div className="App">
-  //     {/* <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.tsx</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header> */}
-  //     <OnboardingListView />
-  //     <OnboardingQuestionWrapper />
-  //   </div>
-  // );
-  return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
+  return (
+    <div className="App">
+      <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
+    </div>
+  );
 }
 
 export default App;

@@ -883,37 +883,46 @@ export const OnboardingQuestionWrapper = (): JSX.Element => {
 
   return (
     <>
-      <h1>Watermelon Markets - Seller Survey</h1>
-      <div>{questions[questionNumber].component}</div>
-      {error && <div>{error}</div>}
-      {questionNumber > 0 && questionNumber < questions.length - 1 && (
-        <button
-          onClick={() => setQuestionNumber((val) => Math.max(val - 1, 0))}
-        >
-          Back
-        </button>
-      )}
-      {questionNumber < questions.length - 1 && (
-        <button
-          onClick={async () => {
-            if (questions[questionNumber].isInvalid) {
-              return setError(questions[questionNumber].invalidMessage ?? "");
-            }
-            if (questionNumber === questions.length - 2) {
-              try {
-                if (await createOnboardingData(onboardingData)) {
-                  console.log("");
+      <h1 className="App-header">Watermelon Markets - Seller Survey</h1>
+      <div className="App-body">
+        <div>{questions[questionNumber].component}</div>
+        {error && <div>{error}</div>}
+        <div className="nav-buttons">
+          {questionNumber > 0 && questionNumber < questions.length - 1 && (
+            <button
+              onClick={() => setQuestionNumber((val) => Math.max(val - 1, 0))}
+            >
+              Back
+            </button>
+          )}
+          {questionNumber < questions.length - 1 && (
+            <button
+              onClick={async () => {
+                if (questions[questionNumber].isInvalid) {
+                  return setError(
+                    questions[questionNumber].invalidMessage ?? ""
+                  );
                 }
-              } catch (err) {
-                console.log(err);
-              }
-            }
-            setQuestionNumber((val) => Math.min(val + 1, questions.length - 1));
-          }}
-        >
-          Next
-        </button>
-      )}
+                setError("");
+                if (questionNumber === questions.length - 2) {
+                  try {
+                    if (await createOnboardingData(onboardingData)) {
+                      console.log("");
+                    }
+                  } catch (err) {
+                    console.log(err);
+                  }
+                }
+                setQuestionNumber((val) =>
+                  Math.min(val + 1, questions.length - 1)
+                );
+              }}
+            >
+              Next
+            </button>
+          )}
+        </div>
+      </div>
     </>
   );
 };

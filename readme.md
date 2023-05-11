@@ -1,6 +1,13 @@
 # Description:
 
-Seller onboarding demo for watermelonmarkets.com
+Seller onboarding demo for [watermelonmarkets.com](watermelonmarkets.com).
+
+# Live Demo:
+
+(Please enable http if browser warns that it's not https. The aesthentic.com domain is a loaner from author)
+
+- Onboarding Survey Form: http://aesthentic.com/
+- Survey Results: http://aesthentic.com/seller_intake_survey_results
 
 # Prerequisites:
 

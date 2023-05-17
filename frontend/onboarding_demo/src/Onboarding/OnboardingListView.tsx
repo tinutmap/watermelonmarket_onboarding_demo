@@ -8,7 +8,8 @@ import {
 export const OnboardingListView = (): JSX.Element => {
   const { data, status } = useAsync<OnboardingDataEntryGetType[]>(
     getOnboardingDataList,
-    []
+    [],
+    undefined
   );
   switch (status) {
     case ResponseStatus.Pending: {

@@ -1,5 +1,6 @@
 import React, { Fragment, JSX, useState } from "react";
 import validator from "validator";
+import { ResponseStatus, useAsync } from "../lib/useAsync";
 import {
   createOnboardingData,
   OnboardingDataEntryPostType,
@@ -518,8 +519,27 @@ const OnboardingQuestion6 = ({
     </>
   );
 };
-const OnboardingQuestion7 = (): JSX.Element => {
-  return <h2>Thank you for your submission!</h2>;
+const OnboardingQuestion7 = ({
+  onboardingData,
+}: {
+  onboardingData: OnboardingDataEntryPostType;
+}): JSX.Element => {
+  const { data, status } = useAsync<boolean, OnboardingDataEntryPostType>(
+    createOnboardingData,
+    [],
+    onboardingData
+  );
+  switch (status) {
+    case ResponseStatus.Pending: {
+      return <p>Loading...</p>;
+    }
+    case ResponseStatus.Reject: {
+      throw new Error(data.toString());
+    }
+    case ResponseStatus.Resolved: {
+      return <h2>Thank you for your submission!</h2>;
+    }
+  }
 };
 export const OnboardingQuestionWrapper = (): JSX.Element => {
   const [questionNumber, setQuestionNumber] = useState(0);
@@ -588,7 +608,7 @@ export const OnboardingQuestionWrapper = (): JSX.Element => {
       invalidMessage: "invalid email",
     },
     {
-      component: <OnboardingQuestion7 />,
+      component: <OnboardingQuestion7 onboardingData={onboardingData} />,
     },
   ];
   const [error, setError] = useState("");
@@ -621,15 +641,6 @@ export const OnboardingQuestionWrapper = (): JSX.Element => {
                   );
                 }
                 setError("");
-                if (questionNumber === questions.length - 2) {
-                  try {
-                    if (await createOnboardingData(onboardingData)) {
-                      console.log("");
-                    }
-                  } catch (err) {
-                    console.log(err);
-                  }
-                }
                 setQuestionNumber((val) =>
                   Math.min(val + 1, questions.length - 1)
                 );

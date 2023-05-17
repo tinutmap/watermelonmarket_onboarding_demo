@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 
 interface stateType {
   status: ResponseStatus;
@@ -39,10 +39,12 @@ function reducerFunc(state: stateType, action: stateType) {
   }
 }
 export function useAsync<T, K = void>(
-  asyncCallBackFn: (args?: K) => Promise<T>,
+  asyncCallBackFn: (asyncCallBackFnArgs: K) => Promise<T>,
   dependencyArray: unknown[],
+  asyncCallBackFnArgs: K,
   initialState?: T
 ) {
+  const isCalled = useRef(false);
   const [state, dispatch] = useReducer(reducerFunc, {
     status: ResponseStatus.Pending,
     data: {},
@@ -50,20 +52,23 @@ export function useAsync<T, K = void>(
   });
 
   useEffect(() => {
-    asyncCallBackFn()
-      .then((result) => {
-        dispatch({
-          status: ResponseStatus.Resolved,
-          data: result,
+    if (!isCalled.current) {
+      isCalled.current = true;
+      asyncCallBackFn(asyncCallBackFnArgs)
+        .then((result) => {
+          dispatch({
+            status: ResponseStatus.Resolved,
+            data: result,
+          });
+        })
+        .catch((e) => {
+          dispatch({
+            status: ResponseStatus.Reject,
+            error: e,
+          });
         });
-      })
-      .catch((e) => {
-        dispatch({
-          status: ResponseStatus.Reject,
-          error: e,
-        });
-      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [...dependencyArray, asyncCallBackFn]);
+  }, [...dependencyArray, asyncCallBackFn, asyncCallBackFnArgs]);
   return { ...state, data: state.data as T };
 }

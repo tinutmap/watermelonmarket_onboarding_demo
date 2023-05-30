@@ -68,3 +68,25 @@ git clone https://github.com/tinutmap/watermelonmarket_onboarding_demo.git
   $ npm run start
   ```
   - Browse the website at `http://localhost:3000`
+
+# Deployment:
+
+## Single Linux instance (non Docker containers):
+
+- Clone the repo from https://github.com/tinutmap/watermelonmarket_onboarding_demo
+
+### Python Backend:
+
+- Instance Python version matching one in Pipfile
+- Run gunicorn
+
+### Frontend:
+
+- On dev machine in `frontend\onboarding_demo` run `npm run build`
+- Copy the `frontend\onboarding_demo\build` folder on the dev machine to `var/www/watermelonmarkets_onboard_demo` on server
+
+### Nginx:
+
+- Install nginx
+- Copy the `watermelonmarkets.conf` to `etc/nginx/sites-enabled/`
+- Start nginx instance

@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  django_backend:
+    image: tinutmap/watermelonmarkets_django_backend
+    container_name: django_backend
+    build: ../
+    restart: unless-stopped
+    command: gunicorn watermelonmarket_onboarding_demo.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
+    volumes:
+      - db:/usr/src/watermelonmarkets_root/backend
+
+  nginx:
+    image: tinutmap/watermelonmarkets_nginx
+    container_name: nginx
+    build:
+      context: ../
+      dockerfile: ./deploy/nginx/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 80:80
+    depends_on:
+      - django_backend
+    volumes:
+      - nginx_log:/var/log/
+      - nginx_root:/root/
+volumes:
+  nginx_log:
+  nginx_root:
+  db:

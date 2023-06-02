@@ -90,3 +90,10 @@ git clone https://github.com/tinutmap/watermelonmarket_onboarding_demo.git
 - Install nginx
 - Copy the `watermelonmarkets.conf` to `etc/nginx/sites-enabled/`
 - Start nginx instance
+
+## Docker Containers:
+
+```
+docker context create remote \
+  --docker "host=ssh://root@aesthentic.com"
+```

@@ -9,6 +9,8 @@ services:
     command: gunicorn watermelonmarket_onboarding_demo.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 8000
+    volumes:
+      - db:/usr/src/watermelonmarkets_root/backend
 
   nginx:
     image: tinutmap/watermelonmarkets_nginx
@@ -27,3 +29,4 @@ services:
 volumes:
   nginx_log:
   nginx_root:
+  db:

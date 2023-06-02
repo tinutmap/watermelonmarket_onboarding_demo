@@ -16,7 +16,6 @@ docker context use remote
 cd ../frontend/onboarding_demo/ &&
 npm run build &&
 cd ../../deploy
-# dos2unix ./nginx/entrypoint.sh # Can't add to ./nginx/Dockerfile, will break nginx docker image startup
 
 # graciously stop running containers
 docker-compose down

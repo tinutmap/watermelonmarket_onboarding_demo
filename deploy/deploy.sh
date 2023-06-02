@@ -14,8 +14,7 @@ docker context use remote
 
 # # build frontend and copy to ./nginx folder
 cd ../frontend/onboarding_demo/ &&
-npm run build && #-- --dest ../../../deploy/nginx/dist &&
-cp -r ./build ../../deploy/nginx/build &&
+npm run build &&
 cd ../../deploy
 # dos2unix ./nginx/entrypoint.sh # Can't add to ./nginx/Dockerfile, will break nginx docker image startup
 

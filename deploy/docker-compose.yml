@@ -36,7 +36,9 @@ services:
   nginx:
     image: tinutmap/watermelonmarkets_nginx
     container_name: nginx
-    build: ./nginx
+    build:
+      context: ../
+      dockerfile: ./deploy/nginx/Dockerfile
     restart: unless-stopped
     ports:
       - 80:80

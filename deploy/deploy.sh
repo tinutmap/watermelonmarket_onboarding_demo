@@ -9,7 +9,7 @@
 docker context use default
 docker context remove remote # remove old remote context to add updated one
 docker context create remote \
-  --docker "host=ssh://root@aesthentic.com" --description "root@aesthentic.com"
+  --docker "host=ssh://tin@192.168.1.251" --description "tin@192.168.1.251"
 docker context use remote
 
 # # build frontend and copy to ./nginx folder

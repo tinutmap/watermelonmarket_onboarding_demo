@@ -12,20 +12,20 @@ services:
     volumes:
       - db:/usr/src/watermelonmarkets_root/backend
 
-  nginx:
-    image: tinutmap/watermelonmarkets_nginx
-    container_name: nginx
-    build:
-      context: ../
-      dockerfile: ./deploy/nginx/Dockerfile
-    restart: unless-stopped
-    ports:
-      - 80:80
-    depends_on:
-      - django_backend
-    volumes:
-      - nginx_log:/var/log/
-      - nginx_root:/root/
+  # nginx:
+  #   image: tinutmap/watermelonmarkets_nginx
+  #   container_name: nginx
+  #   build:
+  #     context: ../
+  #     dockerfile: ./deploy/nginx/Dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - 80:80
+  #   depends_on:
+  #     - django_backend
+  #   volumes:
+  #     - nginx_log:/var/log/
+  #     - nginx_root:/root/
 volumes:
   nginx_log:
   nginx_root:

@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "./constant";
 export interface OnboardingDataEntryPostType {
   store_name?: string;
   gift_card_amount?: number;
@@ -18,10 +19,7 @@ export interface OnboardingDataEntryGetType
 export const getOnboardingDataList = async (): Promise<
   OnboardingDataEntryGetType[]
 > => {
-  const res = await fetch(
-    // "http://localhost:8000/onboarding/"
-    "http://aesthentic.com/onboarding/"
-  );
+  const res = await fetch(BACKEND_URL);
   if (res.ok) {
     return res.json() as Promise<OnboardingDataEntryGetType[]>;
   } else throw new Error(`STATUS ${res.status}: ${res.statusText}`);
@@ -32,17 +30,13 @@ export const createOnboardingData = async (
 ) =>
   // : Promise<boolean>
   {
-    const res = await fetch(
-      // "http://localhost:8000/onboarding/",
-      "http://aesthentic.com/onboarding/",
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-        body: JSON.stringify({ ...onboardingData }),
-      }
-    );
+    const res = await fetch(BACKEND_URL, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({ ...onboardingData }),
+    });
     if (res.ok) {
       return true;
     }

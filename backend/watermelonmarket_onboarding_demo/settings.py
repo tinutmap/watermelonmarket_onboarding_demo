@@ -31,7 +31,8 @@ ALLOWED_HOSTS = [
     '[::1]',
     'aesthentic.com',
     'www.aesthentic.com',
-    '198.71.63.24',
+    # '198.71.63.24',
+    '74.136.162.72' # self host server public IP
 ]
 
 
